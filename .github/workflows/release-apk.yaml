@@ -1,0 +1,55 @@
+name: Build release apk
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release-build:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Validate gradle-wrapper.jar
+        uses: gradle/wrapper-validation-action@v2
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+          cache: 'gradle'
+
+      - name: Set up keystore.properties for signing APK
+        run: |
+          echo "${{ secrets.KEYSTORE_BASE64 }}" | base64 --decode > $GITHUB_WORKSPACE/keystore.jks
+          echo "keyAlias=${{ secrets.KEY_ALIAS }}" > $GITHUB_WORKSPACE/keystore.properties
+          echo "keyPassword=${{ secrets.KEY_PASSWORD }}" >> $GITHUB_WORKSPACE/keystore.properties
+          echo "storeFile=$GITHUB_WORKSPACE/keystore.jks" >> $GITHUB_WORKSPACE/keystore.properties
+          echo "storePassword=${{ secrets.STORE_PASSWORD }}" >> $GITHUB_WORKSPACE/keystore.properties
+
+      - name: Build APK
+        run: ./gradlew assembleRelease
+
+      - name: Upload APK as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-apk
+          path: app/build/outputs/apk/release/app-release.apk
+
+      - name: Remove keystore.properties
+        run: |
+          rm -f $GITHUB_WORKSPACE/keystore.jks $GITHUB_WORKSPACE/keystore.properties
+
+      - name: Create Release and Upload Artifacts
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          files: |
+            app/build/outputs/apk/release/app-release.apk
