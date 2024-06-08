@@ -22,8 +22,6 @@ From [google answers][google quick settings answer]:
 
 For a visual demo:
 
-<video width="400" controls muted playsinline title="video showing above steps">
-  <source src="demo.mp4" type="video/mp4">
-</video>
+![gif showing above steps in action](media/output.gif)
 
 [google quick settings answer]: https://support.google.com/android/answer/9083864

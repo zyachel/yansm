@@ -28,11 +28,11 @@ See [USAGE.md][usage] for instructions.
 
 ## To-Do
 
-- [] fix speed going to 0kb/s every other second
-- [] add ability to see speed via a persistent notification
-- [] show speed in the icon itself
-- [] add other fluff
-- [] submit app to f-droid
+- [ ] fix speed going to 0kb/s every other second
+- [ ] add ability to see speed via a persistent notification
+- [ ] show speed in the icon itself
+- [ ] add other fluff
+- [ ] submit app to f-droid
 
 ## Credits
 
@@ -60,11 +60,7 @@ see <https://www.gnu.org/licenses/>.
 <!-- links -->
 
 [tiktok background data usage]: https://old.reddit.com/r/mildlyinfuriating/comments/10j3xj6/why_did_tiktok_use_3gb_of_background_mobile_data/
-
 [github release url]: https://github.com/zyachel/yansm/releases
-
 [usage]: docs/USAGE.md
-
 [network usage]: https://github.com/JahidHasanCO/NetworkUsage
-
 [android docs]: https://developer.android.com/develop/ui/views/quicksettings-tiles
